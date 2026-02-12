@@ -1,6 +1,6 @@
 # Tokenizer From Scratch
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OE-Void/Tokenizer-from_scratch/blob/main/assets/Tokenizer_from_scratch.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Parveshiiii/microtok/blob/main/assets/Tokenizer_from_scratch.ipynb)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
 
@@ -18,7 +18,7 @@ A highly efficient, customizable library for training **Byte Pair Encoding (BPE)
 You can install this package directly from GitHub using `pip`:
 
 ```bash
-pip install git+https://github.com/OE-Void/Tokenizer-from_scratch.git
+pip install git+https://github.com/Parveshiiii/microtok.git
 ```
 
 ## Quick Start (Train in 4 Lines)
@@ -26,11 +26,10 @@ pip install git+https://github.com/OE-Void/Tokenizer-from_scratch.git
 Train a production-ready tokenizer with best-practice defaults (FineWeb-Edu dataset, 64k Vocab, 10k Batch Size) in just 4 lines of code:
 
 ```python
-from BPE.tok import Trainer
-from BPE.data import batch_iterator
+from microtok import BPETrainer, batch_iterator
 
 # Automatically streams FineWeb-Edu and trains a 64k vocab BPE tokenizer
-Trainer(batch_iterator()) 
+BPETrainer(batch_iterator()) 
 ```
 
 ## Advanced Usage
@@ -39,15 +38,14 @@ Trainer(batch_iterator())
 The standard BPE implementation includes automatic `[CLS]` and `[SEP]` token injection (Template Processing).
 
 ```python
-from BPE.tok import Trainer
-from BPE.data import batch_iterator
+from microtok import BPETrainer, batch_iterator
 
 # Initialize the data stream (defaults to FineWeb-Edu 10BT sample)
 # Batches are yielded to keep memory usage low
 batch_iter = batch_iterator(BATCH_SIZE=10_000)
 
 # Start Training
-Trainer(
+BPETrainer(
     batch_iter, 
     vocab_size=64_000, 
     special_tokens=["[PAD]", "[UNK]", "[CLS]", "[SEP]", "[MASK]"],
@@ -59,14 +57,13 @@ Trainer(
 This module replicates the **GPT-4 (cl100k_base)** pre-tokenization logic using specific Regex patterns and ByteLevel encoding.
 
 ```python
-from TikToken.tok import Trainer
-from TikToken.data import batch_iterator
+from microtok import TikTokenTrainer, batch_iterator
 
 # Initialize data stream
 batch_iter = batch_iterator(BATCH_SIZE=10_000)
 
 # Train using TikToken logic
-Trainer(
+TikTokenTrainer(
     batch_iter,
     vocab_size=64_000,
     special_tokens=["[PAD]", "[UNK]", "[CLS]", "[SEP]", "[MASK]"],

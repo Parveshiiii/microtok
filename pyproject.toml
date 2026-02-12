@@ -1,9 +1,24 @@
 [project]
-name = "toeknizer-scratch"
+name = "microtok"
 version = "0.1.0"
-description = "A simple BPE and TikToken tokenizer training library"
+description = "A highly efficient, customizable library for training Byte Pair Encoding (BPE) and TikToken tokenizers from scratch"
 readme = "README.md"
 requires-python = ">=3.12"
+license = {text = "MIT"}
+authors = [
+    {name = "Parvesh", email = "parvesh@example.com"}
+]
+keywords = ["tokenizer", "bpe", "tiktoken", "gpt", "nlp"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic"
+]
 dependencies = [
     "datasets",
     "tokenizers",
@@ -12,10 +27,15 @@ dependencies = [
     "torch" 
 ]
 
+[project.urls]
+Homepage = "https://github.com/Parveshiiii/microtok"
+Documentation = "https://github.com/Parveshiiii/microtok#readme"
+Repository = "https://github.com/Parveshiiii/microtok.git"
+Issues = "https://github.com/Parveshiiii/microtok/issues"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["BPE", "TikToken"]
+packages = ["microtok"]
