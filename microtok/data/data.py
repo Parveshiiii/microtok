@@ -1,7 +1,10 @@
 from datasets import load_dataset
 from tqdm import tqdm
+import logging
 
-print("Things loaded.. ")
+logging.basicConfig(level=logging.INFO)
+
+logging.info("Things loaded.. ")
 
 def batch_iterator(BATCH_SIZE = 10_000, Dataset="HuggingFaceFW/fineweb-edu", split="train", name="sample-10BT", streaming=True, trust_remote_code=True):
     dataset = load_dataset(
@@ -13,7 +16,7 @@ def batch_iterator(BATCH_SIZE = 10_000, Dataset="HuggingFaceFW/fineweb-edu", spl
     )
     batch = []
 
-    print("Starting stream... (This will take hours)")
+    logging.info("Starting stream... (This will take hours)")
     for example in tqdm(dataset, desc="Processing Rows", unit=" docs"):
         batch.append(example["text"])
         
@@ -21,6 +24,5 @@ def batch_iterator(BATCH_SIZE = 10_000, Dataset="HuggingFaceFW/fineweb-edu", spl
             yield batch
             batch = []
             
-    # Yield the last chunk
     if batch:
         yield batch

@@ -5,10 +5,12 @@ from tokenizers.pre_tokenizers import ByteLevel
 from tokenizers.normalizers import NFKC
 from tokenizers.processors import TemplateProcessing
 from transformers import PreTrainedTokenizerFast
+import logging
 
+logging.basicConfig(level=logging.INFO)
 
 def Trainer(batch_iterator, vocab_size=64_000, special_tokens=["[PAD]", "[UNK]", "[CLS]", "[SEP]", "[MASK]"], save_to = "tokenizer"):
-    print(f"""
+    logging.info(f"""
 --- Training Configuration ---
 Vocab Size: {vocab_size}
 Special Tokens: {special_tokens}
@@ -36,9 +38,9 @@ Save Path: {save_to}
             show_progress=True 
         )
 
-    print(f"Starting training on WHOLE dataset (Vocab: {vocab_size})...")
+    logging.info(f"Starting training on WHOLE dataset (Vocab: {vocab_size})...")
     tokenizer.train_from_iterator(batch_iterator, trainer=trainer)
-    print("\nTraining Complete!")
+    logging.info("\nTraining Complete!")
 
     # Enable automatic insertion of [CLS] and [SEP]
     cls_token = special_tokens_map.get("cls_token", "[CLS]")
@@ -60,10 +62,10 @@ Save Path: {save_to}
     hf_tokenizer.add_special_tokens(special_tokens_map)
     
     hf_tokenizer.save_pretrained(folder_name)
-    print(f"Saved to '{folder_name}'")
+    logging.info(f"Saved to '{folder_name}'")
 
     # --- TEST ---
-    print("\n--- TEST RESULTS ---")
+    logging.info("\n--- TEST RESULTS ---")
     text = "Hello world! I am writing code today."
-    print(f"Input:  '{text}'")
-    print(f"Tokens: {hf_tokenizer.tokenize(text)}")
+    logging.info(f"Input:  '{text}'")
+    logging.info(f"Tokens: {hf_tokenizer.tokenize(text)}")
