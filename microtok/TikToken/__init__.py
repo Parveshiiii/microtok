@@ -1,5 +1,5 @@
 """TikToken tokenizer implementation."""
 
-from .tok import Trainer
+from .tok import trainer
 
 __all__ = ["Trainer"]

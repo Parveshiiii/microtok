@@ -7,10 +7,11 @@ from tokenizers.processors import TemplateProcessing
 from transformers import PreTrainedTokenizerFast
 import logging
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
-def Trainer(batch_iterator, vocab_size=64_000, special_tokens=["[PAD]", "[UNK]", "[CLS]", "[SEP]", "[MASK]"], save_to = "tokenizer"):
-    logging.info(f"""
+def trainer(batch_iterator, vocab_size=64_000, special_tokens=["[PAD]", "[UNK]", "[CLS]", "[SEP]", "[MASK]"], save_to = "tokenizer"):
+    logger.info(f"""
 --- Training Configuration ---
 Vocab Size: {vocab_size}
 Special Tokens: {special_tokens}
@@ -38,9 +39,9 @@ Save Path: {save_to}
             show_progress=True 
         )
 
-    logging.info(f"Starting training on WHOLE dataset (Vocab: {vocab_size})...")
+    logger.info(f"Starting training on WHOLE dataset (Vocab: {vocab_size})...")
     tokenizer.train_from_iterator(batch_iterator, trainer=trainer)
-    logging.info("\nTraining Complete!")
+    logger.info("\nTraining Complete!")
 
     # Enable automatic insertion of [CLS] and [SEP]
     cls_token = special_tokens_map.get("cls_token", "[CLS]")
@@ -62,10 +63,10 @@ Save Path: {save_to}
     hf_tokenizer.add_special_tokens(special_tokens_map)
     
     hf_tokenizer.save_pretrained(folder_name)
-    logging.info(f"Saved to '{folder_name}'")
+    logger.info(f"Saved to '{folder_name}'")
 
     # --- TEST ---
-    logging.info("\n--- TEST RESULTS ---")
+    logger.info("\n--- TEST RESULTS ---")
     text = "Hello world! I am writing code today."
-    logging.info(f"Input:  '{text}'")
-    logging.info(f"Tokens: {hf_tokenizer.tokenize(text)}")
+    logger.info(f"Input:  '{text}'")
+    logger.info(f"Tokens: {hf_tokenizer.tokenize(text)}")
