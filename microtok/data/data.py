@@ -2,9 +2,9 @@ from datasets import load_dataset
 from tqdm import tqdm
 import logging
 
-logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-logging.info("Things loaded.. ")
+logger.info("Things loaded.. ")
 
 def batch_iterator(BATCH_SIZE = 10_000, Dataset="HuggingFaceFW/fineweb-edu", split="train", name="sample-10BT", streaming=True, trust_remote_code=True):
     dataset = load_dataset(
@@ -16,7 +16,7 @@ def batch_iterator(BATCH_SIZE = 10_000, Dataset="HuggingFaceFW/fineweb-edu", spl
     )
     batch = []
 
-    logging.info("Starting stream... (This will take hours)")
+    logger.info("Starting stream... (This will take hours)")
     for example in tqdm(dataset, desc="Processing Rows", unit=" docs"):
         batch.append(example["text"])
         
