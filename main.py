@@ -1,3 +1,12 @@
+import logging
+
+# Configure logging ONCE before importing any modules
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[logging.StreamHandler()]
+)
+
 from microtok import BPETrainer, batch_iterator
 
 
