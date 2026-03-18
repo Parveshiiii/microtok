@@ -67,5 +67,5 @@ Save Path: {save_to}
     # --- TEST ---
     logging.info("\n--- TEST RESULTS ---")
     text = "Hello world! I am writing code today."
-    loggging.info(f"Input:  '{text}'")
+    logging.info(f"Input:  '{text}'")
     logging.info(f"Tokens: {hf_tokenizer.tokenize(text)}")
