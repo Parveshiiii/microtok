@@ -7,6 +7,8 @@ logger = logging.getLogger(__name__)
 
 logger.info("Things loaded.. ")
 
+__all__ = ["batch_iterator"]
+
 def batch_iterator(BATCH_SIZE = 10_000, Dataset="HuggingFaceFW/fineweb-edu", split="train", name="sample-10BT", streaming=True, trust_remote_code=True):
     dataset = load_dataset(
         Dataset, 
